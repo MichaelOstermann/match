@@ -1,0 +1,18 @@
+:root {
+}
+
+h1:not(:first-of-type) {
+    margin-top: 1.5em;
+}
+
+h1 {
+    margin-bottom: 0.75em;
+}
+
+.VPNavBar {
+    --vp-c-gutter: transparent;
+}
+
+.VPBadge + .VPBadge {
+    margin-left: 1em;
+}

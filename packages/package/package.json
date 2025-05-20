@@ -1,0 +1,37 @@
+{
+    "name": "@monstermann/NAME",
+    "type": "module",
+    "version": "0.0.0",
+    "description": "DESC",
+    "author": "Michael Ostermann <michaelostermann@me.com>",
+    "license": "MIT",
+    "homepage": "https://MichaelOstermann.github.io/NAME/",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/MichaelOstermann/NAME.git"
+    },
+    "bugs": {
+        "url": "https://github.com/MichaelOstermann/NAME/issues"
+    },
+    "keywords": [],
+    "sideEffects": false,
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js"
+        }
+    },
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "bundle": "tsdown",
+        "release": "bun publish --access public"
+    },
+    "dependencies": {
+        "@monstermann/dfdl": "^0.0.1"
+    }
+}
