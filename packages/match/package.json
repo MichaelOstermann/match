@@ -1,19 +1,28 @@
 {
-    "name": "@monstermann/NAME",
+    "name": "@monstermann/match",
     "type": "module",
     "version": "0.0.0",
-    "description": "DESC",
+    "description": "Zero-runtime exhaustive pattern matching.",
     "author": "Michael Ostermann <michaelostermann@me.com>",
     "license": "MIT",
-    "homepage": "https://MichaelOstermann.github.io/NAME/",
+    "homepage": "https://MichaelOstermann.github.io/match",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/MichaelOstermann/NAME.git"
+        "url": "git+https://github.com/MichaelOstermann/match.git"
     },
     "bugs": {
-        "url": "https://github.com/MichaelOstermann/NAME/issues"
+        "url": "https://github.com/MichaelOstermann/match/issues"
     },
-    "keywords": [],
+    "keywords": [
+        "pattern",
+        "matching",
+        "pattern-matching",
+        "exhaustive",
+        "typescript",
+        "match-with",
+        "match",
+        "switch"
+    ],
     "sideEffects": false,
     "exports": {
         ".": {
@@ -32,6 +41,6 @@
         "release": "bun publish --access public"
     },
     "dependencies": {
-        "@monstermann/dfdl": "^0.0.1"
+        "type-fest": "^4.41.0"
     }
 }

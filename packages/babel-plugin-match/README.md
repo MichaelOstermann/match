@@ -1,6 +1,6 @@
 <div align="center">
 
-<h1>match</h1>
+<h1>babel-plugin-match</h1>
 
 **Zero-runtime exhaustive pattern matching.**
 

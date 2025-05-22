@@ -1,0 +1,49 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`shape > optimize #1 1`] = `
+"import { match } from "@monstermann/match";
+value && typeof value === "object" && value.foo === a ? true : false;"
+`;
+
+exports[`shape > optimize #2 1`] = `
+"import { match } from "@monstermann/match";
+value && typeof value === "object" && value.foo === a && value.bar === b ? true : false;"
+`;
+
+exports[`shape > optimize #3 1`] = `
+"import { match } from "@monstermann/match";
+value && typeof value === "object" && value.baz === a ? true : false;"
+`;
+
+exports[`shape > optimize #4 1`] = `
+"import { match } from "@monstermann/match";
+a === a ? true : false;"
+`;
+
+exports[`shape > optimize #5 1`] = `
+"import { match } from "@monstermann/match";
+a === a && b === b ? true : false;"
+`;
+
+exports[`shape > optimize #6 1`] = `
+"import { match } from "@monstermann/match";
+(_value => _value && typeof _value === "object" && _value.baz === a ? true : false)({
+  foo: a,
+  bar: b
+});"
+`;
+
+exports[`shape > optimize #7 1`] = `
+"import { match } from "@monstermann/match";
+(_value => _value && typeof _value === "object" && _value.foo === a ? true : false)(getValue());"
+`;
+
+exports[`shape > optimize #8 1`] = `
+"import { match } from "@monstermann/match";
+(_value => _value && typeof _value === "object" && _value.foo === a && _value.bar === b ? true : false)(getValue());"
+`;
+
+exports[`shape > optimize #9 1`] = `
+"import { match } from "@monstermann/match";
+(_value => _value && typeof _value === "object" && _value.baz === a ? true : false)(getValue());"
+`;

@@ -1,0 +1,51 @@
+{
+    "name": "@monstermann/babel-plugin-match",
+    "type": "module",
+    "version": "0.0.0",
+    "description": "Zero-runtime exhaustive pattern matching.",
+    "author": "Michael Ostermann <michaelostermann@me.com>",
+    "license": "MIT",
+    "homepage": "https://MichaelOstermann.github.io/match",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/MichaelOstermann/match.git"
+    },
+    "bugs": {
+        "url": "https://github.com/MichaelOstermann/match/issues"
+    },
+    "keywords": [
+        "pattern",
+        "matching",
+        "pattern-matching",
+        "exhaustive",
+        "typescript",
+        "match-with",
+        "match",
+        "switch"
+    ],
+    "sideEffects": false,
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js"
+        }
+    },
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "bundle": "tsdown",
+        "release": "bun publish --access public"
+    },
+    "dependencies": {
+        "@babel/core": "^7.27.1",
+        "@babel/types": "^7.27.1"
+    },
+    "devDependencies": {
+        "@types/babel-types": "^7.0.16",
+        "@types/babel__core": "^7.20.5"
+    }
+}

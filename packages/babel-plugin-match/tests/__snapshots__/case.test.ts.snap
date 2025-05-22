@@ -1,0 +1,6 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`case > optimize #1 1`] = `
+"import { match } from "@monstermann/match";
+value === 1 ? "one" : "unknown";"
+`;
