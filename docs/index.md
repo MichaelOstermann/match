@@ -1,6 +1,14 @@
 # match
 
-[![bundle][bundle-src]][bundle-href]
+<Badge type="info" class="size">
+    <span>Minified</span>
+    <span>1.00 KB</span>
+</Badge>
+
+<Badge type="info" class="size">
+    <span>Minzipped</span>
+    <span>305 B</span>
+</Badge>
 
 **Zero-runtime exhaustive pattern matching, inspired by [ts-pattern](https://github.com/gvergnaud/ts-pattern) and [pattycake](https://github.com/aidenybai/pattycake).**
 
@@ -189,6 +197,8 @@ Please consult your bundler of choice on how to enable Babel plugins, some examp
 
 ::: details vite + @vitejs/plugin-react
 
+::: code-group
+
 ```ts [vite]
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
@@ -228,7 +238,9 @@ export default defineConfig({
 
 ## API
 
-### `returnType<T>()`
+### returnType
+
+`returnType<T>()`
 
 By default, the return type is inferred from your cases. You can enforce a specific type:
 
@@ -241,7 +253,9 @@ match(foo)
     .or("c")
 ```
 
-### `.case(pattern, result)`
+### case
+
+`case(pattern, result)`
 
 Matches a primitive value (`===`). Returns result if matched.
 
@@ -256,7 +270,9 @@ match(value)
     .orThrow() //=> "two"
 ```
 
-### `.onCase(pattern, fn)`
+### onCase
+
+`onCase(pattern, fn)`
 
 Like `.case`, but calls `fn(value)` if matched. Useful for expensive computations.
 
@@ -270,7 +286,9 @@ match(value)
     .orThrow(); //=> -4
 ```
 
-### `.shape(object, result)`
+### shape
+
+`shape(object, result)`
 
 Matches a shallow object shape. All fields must match (`===`), only supports matching primitives.
 
@@ -302,7 +320,9 @@ const isEmpty = match(value as Rectangle | Circle)
     .or(false) //=> true
 ```
 
-### `.onShape(object, fn)`
+### onShape
+
+`onShape(object, fn)`
 
 Like `.shape`, but calls `fn(value)` if matched. Useful for expensive computations.
 
@@ -331,7 +351,9 @@ const area = match(value as Rectangle | Circle)
     .orThrow() //=> 100
 ```
 
-### `.cond(predicate, result)`
+### cond
+
+`cond(predicate, result)`
 
 Matches if `predicate(value)` is truthy.
 
@@ -342,7 +364,9 @@ match(10 as number)
     .or("zero"); //=> "positive"
 ```
 
-### `.onCond(predicate, fn)`
+### onCond
+
+`onCond(predicate, fn)`
 
 Like `.cond`, but calls `fn(value)` if matched.
 
@@ -354,7 +378,9 @@ match("Hello world!" as string)
     .or(false); //=> `Message "Hello world!" is too short`
 ```
 
-### `.or(fallback)`
+### or
+
+`or(fallback)`
 
 Returns the result, otherwise the given fallback.
 
@@ -367,7 +393,9 @@ match(3 as number)
     .or("other"); //=> "other"
 ```
 
-### `.orElse(fn)`
+### orElse
+
+`orElse(fn)`
 
 Returns the result, otherwise calls `fn(value)`.
 
@@ -380,7 +408,9 @@ match(3 as number)
     .orElse((num) => String(num)); //=> "3"
 ```
 
-### `.orThrow()`
+### orThrow
+
+`orThrow()`
 
 Returns the result, or throws an exception at runtime. Enforces exhaustiveness at compile time.
 
@@ -393,6 +423,3 @@ match(3 as number)
     .orThrow(); //=> Error
 //   ~~~~~~~ ❌ Type 'MatchError<3>' has no call signatures. // [!code error]
 ```
-
-[bundle-src]: https://img.shields.io/bundlephobia/minzip/%40monstermann/match?style=flat&colorA=080f12&colorB=3451b2&label=minzip
-[bundle-href]: https://bundlephobia.com/result?p=%40monstermann/match

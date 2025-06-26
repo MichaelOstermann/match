@@ -1,5 +1,5 @@
 import DefaultTheme from "vitepress/theme"
 import "virtual:group-icons.css"
-import "./custom.css"
+import "@monstermann/vitepress-theme/theme.css"
 
 export default DefaultTheme

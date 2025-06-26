@@ -2,22 +2,30 @@ import { defineConfig } from "vitepress"
 import { groupIconMdPlugin, groupIconVitePlugin } from "vitepress-plugin-group-icons"
 
 export default defineConfig({
-    title: "match",
-    description: "Zero-runtime exhaustive pattern matching.",
     base: "/match/",
+    description: "Zero-runtime exhaustive pattern matching.",
+    title: "match",
+    markdown: {
+        theme: {
+            dark: "catppuccin-macchiato",
+            light: "github-light-default",
+        },
+        config(md) {
+            md.use(groupIconMdPlugin)
+        },
+    },
     themeConfig: {
         outline: "deep",
+        docFooter: {
+            next: false,
+            prev: false,
+        },
         search: {
             provider: "local",
         },
         socialLinks: [
             { icon: "github", link: "https://github.com/MichaelOstermann/match" },
         ],
-    },
-    markdown: {
-        config(md) {
-            md.use(groupIconMdPlugin)
-        },
     },
     vite: {
         plugins: [

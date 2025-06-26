@@ -5,6 +5,7 @@
       "devDependencies": {
         "@monstermann/eslint-config": "^0.1.1",
         "@monstermann/tinybench-pretty-printer": "^0.1.0",
+        "@monstermann/vitepress-theme": "^0.1.0",
         "@sindresorhus/tsconfig": "^7.0.0",
         "bumpp": "^10.1.1",
         "tinybench": "^4.0.1",
@@ -264,6 +265,8 @@
     "@monstermann/tables": ["@monstermann/tables@0.0.0", "", { "dependencies": { "cli-truncate": "^4.0.0", "picocolors": "^1.0.1", "string-width": "^7.1.0" } }, "sha512-mpM86yGT6EPHIyB0c4uIdKQ9mPupfNotn0UHWbj1EVeYpJP/hC9k0p6KoLf9ZZ/r3gHu9PRq61tr3K8Yeg/Rng=="],
 
     "@monstermann/tinybench-pretty-printer": ["@monstermann/tinybench-pretty-printer@0.1.0", "", { "dependencies": { "@monstermann/tables": "^0.0.0", "picocolors": "^1.0.1" }, "peerDependencies": { "tinybench": "^4.0.0" } }, "sha512-JjGUPttRQMpdVH8+mEk2XFgqjTlNwUsSwa10MyL22S3sUP/TntPlzWNbybY4JbRFl6dKEwxCb7myePxrghmtYw=="],
+
+    "@monstermann/vitepress-theme": ["@monstermann/vitepress-theme@0.1.0", "", {}, "sha512-T1hIFdx05Sfgz0TLbX4lLBRjS5PuSuWjGUyfCwYj1WwnUiGH/ZXoD3UT1j4wVTwyvsKCvpTAk26EZS2d5Opr6A=="],
 
     "@napi-rs/wasm-runtime": ["@napi-rs/wasm-runtime@0.2.10", "", { "dependencies": { "@emnapi/core": "^1.4.3", "@emnapi/runtime": "^1.4.3", "@tybys/wasm-util": "^0.9.0" } }, "sha512-bCsCyeZEwVErsGmyPNSzwfwFn4OdxBj0mmv6hOFucB/k81Ojdu68RbZdxYsRQUPc9l6SU5F/cG+bXgWs3oUgsQ=="],
 
