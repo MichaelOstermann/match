@@ -1,6 +1,6 @@
+import type { Context } from "./Context"
 import * as t from "@babel/types"
-import { equals, isWellFormedObject } from "./helpers.js"
-import type { Context } from "./Context.js"
+import { equals, isWellFormedObject } from "./helpers"
 
 export function optimizeShape(
     ctx: Context,

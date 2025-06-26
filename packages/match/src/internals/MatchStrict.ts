@@ -1,6 +1,6 @@
-import type { CasePatterns, DropCase, ExcludeMatchedCases, HasCases, JoinMatchedCases, PickCase } from "./case.js"
-import type { MatchError } from "./helpers.js"
-import type { DropShape, ExcludeMatchedShapes, HasShapes, JoinMatchedShapes, PickShape, ShapePatterns } from "./shape.js"
+import type { CasePatterns, DropCase, ExcludeMatchedCases, HasCases, JoinMatchedCases, PickCase } from "./case"
+import type { MatchError } from "./helpers"
+import type { DropShape, ExcludeMatchedShapes, HasShapes, JoinMatchedShapes, PickShape, ShapePatterns } from "./shape"
 
 export interface MatchStrict<
     Input,

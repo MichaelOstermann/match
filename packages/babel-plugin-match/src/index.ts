@@ -1,7 +1,7 @@
-import * as t from "@babel/types"
 import type { PluginObj } from "@babel/core"
-import { build } from "./build.js"
-import { collectImports, hasMatchImport, isMatchImport, resetImports } from "./imports.js"
+import * as t from "@babel/types"
+import { build } from "./build"
+import { collectImports, hasMatchImport, isMatchImport, resetImports } from "./imports"
 
 export default function (): PluginObj {
     return {
@@ -11,9 +11,6 @@ export default function (): PluginObj {
                 enter() {
                     resetImports()
                 },
-            },
-            ImportDeclaration(path) {
-                collectImports(path)
             },
             CallExpression(path) {
                 // If we don't have an import { match } from "@monstermann/match" at this point, abort.
@@ -26,6 +23,9 @@ export default function (): PluginObj {
                 const value = path.node.arguments[0]
                 if (!t.isExpression(value)) return
                 build(path, value)
+            },
+            ImportDeclaration(path) {
+                collectImports(path)
             },
         },
     }

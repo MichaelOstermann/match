@@ -1,7 +1,7 @@
 import { tinybenchPrinter } from "@monstermann/tinybench-pretty-printer"
 import { Bench } from "tinybench"
-import { match } from "../packages/match/src/match.js"
 import { match as tsMatch } from "ts-pattern"
+import { match } from "../packages/match/src/match"
 
 const bench = new Bench()
 
@@ -11,18 +11,18 @@ bench
         const b = 10 as number
         const c = 10 as number
 
-        return match({ foo: a, bar: b, baz: c })
-            .shape({ foo: 0, bar: 0, baz: 0 }, true)
-            .shape({ foo: 1, bar: 1, baz: 1 }, true)
-            .shape({ foo: 2, bar: 2, baz: 2 }, true)
-            .shape({ foo: 3, bar: 3, baz: 3 }, true)
-            .shape({ foo: 4, bar: 4, baz: 4 }, true)
-            .shape({ foo: 5, bar: 5, baz: 5 }, true)
-            .shape({ foo: 6, bar: 6, baz: 6 }, true)
-            .shape({ foo: 7, bar: 7, baz: 7 }, true)
-            .shape({ foo: 8, bar: 8, baz: 8 }, true)
-            .shape({ foo: 9, bar: 9, baz: 9 }, true)
-            .shape({ foo: 10, bar: 10, baz: 10 }, true)
+        return match({ bar: b, baz: c, foo: a })
+            .shape({ bar: 0, baz: 0, foo: 0 }, true)
+            .shape({ bar: 1, baz: 1, foo: 1 }, true)
+            .shape({ bar: 2, baz: 2, foo: 2 }, true)
+            .shape({ bar: 3, baz: 3, foo: 3 }, true)
+            .shape({ bar: 4, baz: 4, foo: 4 }, true)
+            .shape({ bar: 5, baz: 5, foo: 5 }, true)
+            .shape({ bar: 6, baz: 6, foo: 6 }, true)
+            .shape({ bar: 7, baz: 7, foo: 7 }, true)
+            .shape({ bar: 8, baz: 8, foo: 8 }, true)
+            .shape({ bar: 9, baz: 9, foo: 9 }, true)
+            .shape({ bar: 10, baz: 10, foo: 10 }, true)
             .or(false)
     })
     .add("ts-pattern", () => {
@@ -30,18 +30,18 @@ bench
         const b = 10 as number
         const c = 10 as number
 
-        return tsMatch({ foo: a, bar: b, baz: c })
-            .with({ foo: 0, bar: 0, baz: 0 }, () => true)
-            .with({ foo: 1, bar: 1, baz: 1 }, () => true)
-            .with({ foo: 2, bar: 2, baz: 2 }, () => true)
-            .with({ foo: 3, bar: 3, baz: 3 }, () => true)
-            .with({ foo: 4, bar: 4, baz: 4 }, () => true)
-            .with({ foo: 5, bar: 5, baz: 5 }, () => true)
-            .with({ foo: 6, bar: 6, baz: 6 }, () => true)
-            .with({ foo: 7, bar: 7, baz: 7 }, () => true)
-            .with({ foo: 8, bar: 8, baz: 8 }, () => true)
-            .with({ foo: 9, bar: 9, baz: 9 }, () => true)
-            .with({ foo: 10, bar: 10, baz: 10 }, () => true)
+        return tsMatch({ bar: b, baz: c, foo: a })
+            .with({ bar: 0, baz: 0, foo: 0 }, () => true)
+            .with({ bar: 1, baz: 1, foo: 1 }, () => true)
+            .with({ bar: 2, baz: 2, foo: 2 }, () => true)
+            .with({ bar: 3, baz: 3, foo: 3 }, () => true)
+            .with({ bar: 4, baz: 4, foo: 4 }, () => true)
+            .with({ bar: 5, baz: 5, foo: 5 }, () => true)
+            .with({ bar: 6, baz: 6, foo: 6 }, () => true)
+            .with({ bar: 7, baz: 7, foo: 7 }, () => true)
+            .with({ bar: 8, baz: 8, foo: 8 }, () => true)
+            .with({ bar: 9, baz: 9, foo: 9 }, () => true)
+            .with({ bar: 10, baz: 10, foo: 10 }, () => true)
             .otherwise(() => false)
     })
     .add("@monstermann/babel-plugin-match", () => {
@@ -56,5 +56,5 @@ bench
 bench
     .run()
     .then(() => tinybenchPrinter.toMarkdown(bench))
-    // eslint-disable-next-line no-console
+
     .then(console.log)

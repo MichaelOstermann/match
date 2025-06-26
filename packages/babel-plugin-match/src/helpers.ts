@@ -1,6 +1,6 @@
-import * as t from "@babel/types"
 import type { NodePath } from "@babel/core"
-import type { LazyExpression, WellFormedObject } from "./types.js"
+import type { LazyExpression, WellFormedObject } from "./types"
+import * as t from "@babel/types"
 
 export class AbortError extends Error {}
 

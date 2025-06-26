@@ -1,8 +1,7 @@
 .DS_Store
 node_modules
 packages/*/dist
-notes/*
-!notes/.keep
+notes
 playground/*
 !playground/.keep
 docs/.vitepress/cache/

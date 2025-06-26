@@ -1,6 +1,6 @@
-import * as t from "@babel/types"
 import type { NodePath } from "@babel/core"
-import type { Context } from "./Context.js"
+import type { Context } from "./Context"
+import * as t from "@babel/types"
 
 export function buildCase(
     ctx: Context,

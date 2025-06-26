@@ -11,5 +11,4 @@ export type IsLiteral<T> = IsNonNullableLiteral<T> extends true
         ? true
         : false
 
-// @ts-expect-error ignore
-export interface MatchError<i> { __: never }
+export interface MatchError<_i> { __: never }

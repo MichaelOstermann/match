@@ -1,6 +1,6 @@
-import type * as t from "@babel/types"
 import type { NodePath } from "@babel/core"
-import type { Context } from "./Context.js"
+import type * as t from "@babel/types"
+import type { Context } from "./Context"
 
 export function buildOr(
     ctx: Context,

@@ -1,6 +1,6 @@
 import { transformSync } from "@babel/core"
-import matchPlugin from "../src/index.js"
-import { expect, assert } from "vitest"
+import { assert, expect } from "vitest"
+import matchPlugin from "../src/index"
 
 export function expectSkip(code: string): void {
     const expected = transformSync(code)?.code

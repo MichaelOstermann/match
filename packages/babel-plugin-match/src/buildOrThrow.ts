@@ -1,7 +1,7 @@
-import type * as t from "@babel/types"
 import type { NodePath } from "@babel/core"
-import type { Context } from "./Context.js"
-import { createThrowExpression } from "./helpers.js"
+import type * as t from "@babel/types"
+import type { Context } from "./Context"
+import { createThrowExpression } from "./helpers"
 
 export function buildOrThrow(
     ctx: Context,

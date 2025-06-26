@@ -1,7 +1,7 @@
-import type * as t from "@babel/types"
 import type { NodePath } from "@babel/core"
-import type { Context } from "./Context.js"
-import { optimizeCall } from "./optimizeCall.js"
+import type * as t from "@babel/types"
+import type { Context } from "./Context"
+import { optimizeCall } from "./optimizeCall"
 
 export function buildOrElse(
     ctx: Context,

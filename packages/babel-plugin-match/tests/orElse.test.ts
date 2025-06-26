@@ -1,5 +1,5 @@
 import { describe, test } from "vitest"
-import { expectSnapshot } from "./helpers.js"
+import { expectSnapshot } from "./helpers"
 
 describe("orElse", () => {
     test("optimize #1", () => {

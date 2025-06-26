@@ -1,8 +1,8 @@
-import type * as t from "@babel/types"
 import type { NodePath } from "@babel/core"
-import type { Context } from "./Context.js"
-import { optimizeShape } from "./optimizeShape.js"
-import { optimizeCall } from "./optimizeCall.js"
+import type * as t from "@babel/types"
+import type { Context } from "./Context"
+import { optimizeCall } from "./optimizeCall"
+import { optimizeShape } from "./optimizeShape"
 
 export function buildOnShape(
     ctx: Context,

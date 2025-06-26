@@ -1,5 +1,5 @@
 import type { Primitive } from "type-fest"
-import type { IsLiteral, IsTrue } from "./helpers.js"
+import type { IsLiteral, IsTrue } from "./helpers"
 
 // Used to check whether the unmatched value has any cases left.
 export type HasCases<T> = IsTrue<T extends unknown

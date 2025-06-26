@@ -1,5 +1,5 @@
-import type { OptionalKeysOf, RequiredKeysOf, Simplify, Primitive, ConditionalPick, RequireAtLeastOne } from "type-fest"
-import type { IfTrue, IsLiteral, IsTrue } from "./helpers.js"
+import type { ConditionalPick, OptionalKeysOf, Primitive, RequireAtLeastOne, RequiredKeysOf, Simplify } from "type-fest"
+import type { IfTrue, IsLiteral, IsTrue } from "./helpers"
 
 type PlainObject = { [Key in PropertyKey]: unknown }
 

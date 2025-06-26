@@ -1,5 +1,6 @@
+/* eslint-disable unused-imports/no-unused-vars */
 import { describe, expect, expectTypeOf, test } from "vitest"
-import { match } from "../src/match.js"
+import { match } from "../src/match"
 
 describe("case", () => {
     describe("implementation", () => {

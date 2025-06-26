@@ -1,23 +1,7 @@
 export class ExhaustiveMatch<T> {
     constructor(readonly value: T) {}
 
-    returnType(): this {
-        return this
-    }
-
     case(): this {
-        return this
-    }
-
-    onCase(): this {
-        return this
-    }
-
-    shape(): this {
-        return this
-    }
-
-    onShape(): this {
         return this
     }
 
@@ -25,12 +9,16 @@ export class ExhaustiveMatch<T> {
         return this
     }
 
+    onCase(): this {
+        return this
+    }
+
     onCond(): this {
         return this
     }
 
-    orThrow(): T {
-        return this.value
+    onShape(): this {
+        return this
     }
 
     or(): any {
@@ -39,5 +27,17 @@ export class ExhaustiveMatch<T> {
 
     orElse(): any {
         return this.value
+    }
+
+    orThrow(): T {
+        return this.value
+    }
+
+    returnType(): this {
+        return this
+    }
+
+    shape(): this {
+        return this
     }
 }

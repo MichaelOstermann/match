@@ -1,13 +1,13 @@
-import * as t from "@babel/types"
 import type { NodePath } from "@babel/core"
-import type { LazyExpression, WellFormedObject } from "./types.js"
-import { equals, isWellFormedObject } from "./helpers.js"
-import type { Context } from "./Context.js"
+import type { Context } from "./Context"
+import type { LazyExpression, WellFormedObject } from "./types"
+import * as t from "@babel/types"
+import { equals, isWellFormedObject } from "./helpers"
 
 type ParsedFn = {
+    body: NodePath<t.Expression> | NodePath<t.BlockStatement> | undefined
     hasParams: boolean
     param: NodePath<t.Identifier> | undefined
-    body: NodePath<t.Expression> | NodePath<t.BlockStatement> | undefined
 }
 
 export function optimizeCall(
@@ -22,7 +22,7 @@ export function optimizeCall(
     if (!pattern.isFunctionExpression() && !pattern.isArrowFunctionExpression())
         ctx.abort()
 
-    const { hasParams, param, body } = parseFunction(pattern)
+    const { body, hasParams, param } = parseFunction(pattern)
 
     // match(a).cond(() => {}, b) => undefined
     // match(a).cond(() => { return }, b) => undefined
@@ -136,9 +136,9 @@ function parseFunction(
     pattern: NodePath<t.ArrowFunctionExpression> | NodePath<t.FunctionExpression>,
 ): ParsedFn {
     return {
+        body: parseBody(pattern),
         hasParams: pattern.node.params.length > 0,
         param: parseParam(pattern),
-        body: parseBody(pattern),
     }
 }
 

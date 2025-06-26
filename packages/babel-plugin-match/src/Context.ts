@@ -1,13 +1,13 @@
-import * as t from "@babel/types"
 import type { NodePath } from "@babel/core"
-import { AbortError, getExpression } from "./helpers.js"
-import type { LazyExpression } from "./types.js"
+import type { LazyExpression } from "./types"
+import * as t from "@babel/types"
+import { AbortError, getExpression } from "./helpers"
 
 export class Context {
-    path: NodePath<t.CallExpression>
-    branches: [LazyExpression, LazyExpression][] = []
-    before = new Set<() => void>()
     after = new Set<(expr: t.Expression) => t.Expression>()
+    before = new Set<() => void>()
+    branches: [LazyExpression, LazyExpression][] = []
+    path: NodePath<t.CallExpression>
 
     constructor(path: NodePath<t.CallExpression>) {
         this.path = path
@@ -19,14 +19,6 @@ export class Context {
 
     addBranch(branch: [LazyExpression, LazyExpression]): void {
         this.branches.push(branch)
-    }
-
-    onBeforeBuild(cb: () => void): void {
-        this.before.add(cb)
-    }
-
-    onAfterBuild(cb: (expr: t.Expression) => t.Expression): void {
-        this.after.add(cb)
     }
 
     assertExpression(value: t.Node | undefined): asserts value is t.Expression {
@@ -57,5 +49,13 @@ export class Context {
         }
 
         path.replaceWith(expression)
+    }
+
+    onAfterBuild(cb: (expr: t.Expression) => t.Expression): void {
+        this.after.add(cb)
+    }
+
+    onBeforeBuild(cb: () => void): void {
+        this.before.add(cb)
     }
 }

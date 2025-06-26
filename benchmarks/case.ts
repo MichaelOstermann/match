@@ -1,7 +1,7 @@
 import { tinybenchPrinter } from "@monstermann/tinybench-pretty-printer"
 import { Bench } from "tinybench"
-import { match } from "../packages/match/src/match.js"
 import { match as tsMatch } from "ts-pattern"
+import { match } from "../packages/match/src/match"
 
 const bench = new Bench()
 
@@ -47,5 +47,5 @@ bench
 bench
     .run()
     .then(() => tinybenchPrinter.toMarkdown(bench))
-    // eslint-disable-next-line no-console
+
     .then(console.log)

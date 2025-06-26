@@ -1,5 +1,5 @@
 import { describe, test } from "vitest"
-import { expectSkip } from "./helpers.js"
+import { expectSkip } from "./helpers"
 
 describe("skips", () => {
     test("skip #1", () => {

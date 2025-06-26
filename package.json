@@ -3,13 +3,13 @@
     "private": true,
     "workspaces": ["packages/*"],
     "scripts": {
-        "checks": "bun run eslint && bun run tsc && bun run vitest run",
+        "checks": "bun run eslint && bun run tsc && bun run vitest run --passWithNoTests",
         "release": "bun run checks && bun run -F '*' bundle && bun run bumpp -r --no-push && bun run -F '*' release",
         "docs": "vitepress dev docs --open",
         "docs:build": "vitepress build docs"
     },
     "devDependencies": {
-        "@monstermann/eslint-config": "^0.1.1",
+        "@monstermann/eslint-config": "^0.2.0",
         "@monstermann/tinybench-pretty-printer": "^0.1.0",
         "@monstermann/vitepress-theme": "^0.1.0",
         "@sindresorhus/tsconfig": "^7.0.0",

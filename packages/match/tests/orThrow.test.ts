@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest"
-import { match } from "../src/match.js"
+import { match } from "../src/match"
 
 describe("orThrow", () => {
     test("should return exhaustive match", () => {

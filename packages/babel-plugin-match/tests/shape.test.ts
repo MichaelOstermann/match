@@ -1,5 +1,5 @@
 import { describe, test } from "vitest"
-import { expectSkip, expectSnapshot } from "./helpers.js"
+import { expectSkip, expectSnapshot } from "./helpers"
 
 describe("shape", () => {
     test("optimize #1", () => {
