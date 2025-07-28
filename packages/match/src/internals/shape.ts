@@ -1,11 +1,18 @@
 import type { ConditionalPick, OptionalKeysOf, Primitive, RequireAtLeastOne, RequiredKeysOf, Simplify } from "type-fest"
 import type { IfTrue, IsLiteral, IsTrue } from "./helpers"
 
-type PlainObject = { [Key in PropertyKey]: unknown }
+type IsPlainObject<T> = T extends object
+    ? T extends any[]
+        ? false
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+        : T extends Function
+            ? false
+            : true
+    : false
 
 // Used to check whether the unmatched value has any shapes left.
 export type HasShapes<T> = IsTrue<T extends unknown
-    ? T extends PlainObject
+    ? IsPlainObject<T> extends true
         ? true
         : false
     : false>
@@ -13,14 +20,14 @@ export type HasShapes<T> = IsTrue<T extends unknown
 // Used in .onShape(pattern, fn: (value) => …) to determine the type of
 // `value` based on the provided `pattern`.
 export type PickShape<T, U> = T extends unknown
-    ? T extends PlainObject
+    ? IsPlainObject<T> extends true
         ? Readonly<Simplify<MatchShape<T, U> & U>>
         : never
     : never
 
 // Used to remove the provided shape from the unmatched value.
 export type DropShape<T, U> = T extends unknown
-    ? T extends PlainObject
+    ? IsPlainObject<T> extends true
         ? [MatchShape<T, U>] extends [never]
                 ? T
                 : Simplify<CompleteShape<T & {
@@ -38,7 +45,7 @@ export type DropShape<T, U> = T extends unknown
 
 // Used to retrieve all the possible leftover shapes that can be matched.
 export type ShapePatterns<T> = T extends unknown
-    ? T extends PlainObject
+    ? T extends object
         // - Remove all non-primitive fields, this library does not support recursive pattern matching.
         // - Expand optional fields into T | undefined.
         // - Require at least one field.
