@@ -3,7 +3,7 @@
   "workspaces": {
     "": {
       "devDependencies": {
-        "@monstermann/eslint-config": "^0.2.0",
+        "@monstermann/eslint-config": "^0.4.0",
         "@monstermann/tinybench-pretty-printer": "^0.1.0",
         "@monstermann/vitepress-theme": "^0.1.0",
         "@sindresorhus/tsconfig": "^7.0.0",
@@ -258,7 +258,7 @@
 
     "@monstermann/babel-plugin-match": ["@monstermann/babel-plugin-match@workspace:packages/babel-plugin-match", { "dependencies": { "@babel/core": "^7.27.1", "@babel/types": "^7.27.1" }, "devDependencies": { "@types/babel-types": "^7.0.16", "@types/babel__core": "^7.20.5" } }],
 
-    "@monstermann/eslint-config": ["@monstermann/eslint-config@0.2.0", "", { "dependencies": { "@eslint-community/eslint-plugin-eslint-comments": "^4.5.0", "@eslint-react/eslint-plugin": "^1.49.0", "@stylistic/eslint-plugin": "^4.2.0", "@typescript-eslint/eslint-plugin": "^8.32.1", "@typescript-eslint/parser": "^8.32.1", "eslint": "^9.26.0", "eslint-plugin-format": "^1.0.1", "eslint-plugin-import-x": "^4.11.1", "eslint-plugin-jsdoc": "^50.6.17", "eslint-plugin-jsonc": "^2.20.0", "eslint-plugin-n": "^17.18.0", "eslint-plugin-perfectionist": "^4.13.0", "eslint-plugin-react-compiler": "^19.0.0-beta-e552027-20250112", "eslint-plugin-react-hooks": "^5.2.0", "eslint-plugin-react-refresh": "^0.4.20", "eslint-plugin-regexp": "^2.7.0", "eslint-plugin-tailwindcss": "^3.18.0", "eslint-plugin-unicorn": "^59.0.1", "eslint-plugin-unused-imports": "^4.1.4", "globals": "^16.1.0", "jsonc-eslint-parser": "^2.4.0", "prettier": "^3.5.3" } }, "sha512-DgZS4rooHxXuIYnYkCPVdEgsG/FMu+6mNTIDcn7babUMYy1v5dD9pEQGlGyuv7jUUXLebOi/3evvXf6jClNrbA=="],
+    "@monstermann/eslint-config": ["@monstermann/eslint-config@0.4.0", "", { "dependencies": { "@eslint-community/eslint-plugin-eslint-comments": "^4.5.0", "@eslint-react/eslint-plugin": "^1.49.0", "@stylistic/eslint-plugin": "^4.2.0", "@typescript-eslint/eslint-plugin": "^8.32.1", "@typescript-eslint/parser": "^8.32.1", "eslint": "^9.26.0", "eslint-plugin-format": "^1.0.1", "eslint-plugin-import-x": "^4.11.1", "eslint-plugin-jsdoc": "^50.6.17", "eslint-plugin-jsonc": "^2.20.0", "eslint-plugin-n": "^17.18.0", "eslint-plugin-perfectionist": "^4.13.0", "eslint-plugin-react-compiler": "^19.0.0-beta-e552027-20250112", "eslint-plugin-react-hooks": "^5.2.0", "eslint-plugin-react-refresh": "^0.4.20", "eslint-plugin-regexp": "^2.7.0", "eslint-plugin-tailwindcss": "^3.18.0", "eslint-plugin-unicorn": "^59.0.1", "eslint-plugin-unused-imports": "^4.1.4", "globals": "^16.1.0", "jsonc-eslint-parser": "^2.4.0", "prettier": "^3.5.3" } }, "sha512-LNqzG8z7OgsfEtkk6QKE/5fC9myFdwBhKFl782XULGjQ4Mq9RunWy1pE9jN1VvRavAqjjnY0X3dO9BPi6eVRdg=="],
 
     "@monstermann/match": ["@monstermann/match@workspace:packages/match", { "dependencies": { "type-fest": "^4.41.0" } }],
 

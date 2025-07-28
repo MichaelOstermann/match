@@ -9,7 +9,7 @@
         "docs:build": "vitepress build docs"
     },
     "devDependencies": {
-        "@monstermann/eslint-config": "^0.2.0",
+        "@monstermann/eslint-config": "^0.4.0",
         "@monstermann/tinybench-pretty-printer": "^0.1.0",
         "@monstermann/vitepress-theme": "^0.1.0",
         "@sindresorhus/tsconfig": "^7.0.0",
