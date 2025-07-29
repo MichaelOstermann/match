@@ -1,7 +1,7 @@
 {
     "name": "@monstermann/babel-plugin-match",
     "type": "module",
-    "version": "0.0.0",
+    "version": "0.1.0",
     "description": "Zero-runtime exhaustive pattern matching.",
     "author": "Michael Ostermann <michaelostermann@me.com>",
     "license": "MIT",
