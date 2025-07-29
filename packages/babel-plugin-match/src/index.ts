@@ -14,7 +14,7 @@ export default function (): PluginObj {
             },
             CallExpression(path) {
                 // If we don't have an import { match } from "@monstermann/match" at this point, abort.
-                if (!hasMatchImport()) return path.stop()
+                if (!hasMatchImport()) return
 
                 // Check whether this is using the `match` import.
                 if (!isMatchImport(path)) return
