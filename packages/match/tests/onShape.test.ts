@@ -4,10 +4,10 @@ import { match } from "../src/match"
 describe("onShape", () => {
     describe("implementation", () => {
         test("should return matching shape", () => {
-            const result = match({ foo: 2 } as { foo: 1 | 2 | 3 })
-                .onShape({ foo: 1 }, () => 1)
-                .onShape({ foo: 2 }, () => 2)
-                .onShape({ foo: 3 }, () => 3)
+            const result = match.shape({ foo: 2 } as { foo: 1 | 2 | 3 })
+                .onCase({ foo: 1 }, () => 1)
+                .onCase({ foo: 2 }, () => 2)
+                .onCase({ foo: 3 }, () => 3)
                 .orThrow()
 
             expect(result).toBe(2)
@@ -16,12 +16,12 @@ describe("onShape", () => {
 
     describe("types", () => {
         test("exhaustive patterns #1", () => {
-            match({ foo: "foo" as "foo" | "bar" })
-                .onShape({ foo: "foo" }, (value) => {
+            match.shape({ foo: "foo" as "foo" | "bar" })
+                .onCase({ foo: "foo" }, (value) => {
                     expectTypeOf(value).toEqualTypeOf<{ readonly foo: "foo" }>()
                     return true
                 })
-                .onShape({ foo: "bar" }, (value) => {
+                .onCase({ foo: "bar" }, (value) => {
                     expectTypeOf(value).toEqualTypeOf<{ readonly foo: "bar" }>()
                     return true
                 })
@@ -29,100 +29,64 @@ describe("onShape", () => {
         })
 
         test("exhaustive patterns #2", () => {
-            match({ foo: "foo" as "foo" | "bar" })
-                .onShape({ foo: "foo" as "foo" | "bar" }, (value) => {
-                    expectTypeOf(value).toEqualTypeOf<{ readonly foo: "foo" | "bar" }>()
-                    return true
-                })
-                .orThrow()
-        })
-
-        test("exhaustive patterns #3", () => {
-            match({ foo: 0 as 0 | 1 })
-                .onShape({ foo: 0 }, (value) => {
+            match.shape({ foo: 0 as 0 | 1 })
+                .onCase({ foo: 0 }, (value) => {
                     expectTypeOf(value).toEqualTypeOf<{ readonly foo: 0 }>()
                     return true
                 })
-                .onShape({ foo: 1 }, (value) => {
+                .onCase({ foo: 1 }, (value) => {
                     expectTypeOf(value).toEqualTypeOf<{ readonly foo: 1 }>()
                     return true
                 })
                 .orThrow()
         })
 
-        test("exhaustive patterns #4", () => {
-            match({ foo: 0 as 0 | 1 })
-                .onShape({ foo: 0 as 0 | 1 }, (value) => {
-                    expectTypeOf(value).toEqualTypeOf<{ readonly foo: 0 | 1 }>()
-                    return true
-                })
-                .orThrow()
-        })
-
-        test("exhaustive patterns #5", () => {
-            match({ foo: true as boolean })
-                .onShape({ foo: true }, (value) => {
+        test("exhaustive patterns #3", () => {
+            match.shape({ foo: true as boolean })
+                .onCase({ foo: true }, (value) => {
                     expectTypeOf(value).toEqualTypeOf<{ readonly foo: true }>()
                     return true
                 })
-                .onShape({ foo: false }, (value) => {
+                .onCase({ foo: false }, (value) => {
                     expectTypeOf(value).toEqualTypeOf<{ readonly foo: false }>()
                     return true
                 })
                 .orThrow()
         })
 
-        test("exhaustive patterns #6", () => {
-            match({ foo: "foo" as "foo" | null })
-                .onShape({ foo: "foo" }, (value) => {
+        test("exhaustive patterns #4", () => {
+            match.shape({ foo: "foo" as "foo" | null })
+                .onCase({ foo: "foo" }, (value) => {
                     expectTypeOf(value).toEqualTypeOf<{ readonly foo: "foo" }>()
                     return true
                 })
-                .onShape({ foo: null }, (value) => {
+                .onCase({ foo: null }, (value) => {
                     expectTypeOf(value).toEqualTypeOf<{ readonly foo: null }>()
                     return true
                 })
                 .orThrow()
         })
 
-        test("exhaustive patterns #7", () => {
-            match({ foo: "foo" as "foo" | null })
-                .onShape({ foo: "foo" as "foo" | null }, (value) => {
-                    expectTypeOf(value).toEqualTypeOf<{ readonly foo: "foo" | null }>()
-                    return true
-                })
-                .orThrow()
-        })
-
-        test("exhaustive patterns #8", () => {
-            match({ foo: "foo" } as { foo?: "foo" })
-                .onShape({ foo: "foo" }, (value) => {
+        test("exhaustive patterns #5", () => {
+            match.shape({ foo: "foo" } as { foo?: "foo" })
+                .onCase({ foo: "foo" }, (value) => {
                     expectTypeOf(value).toEqualTypeOf<{ readonly foo: "foo" }>()
                     return true
                 })
-                .onShape({ foo: undefined }, (value) => {
+                .onCase({ foo: undefined }, (value) => {
                     expectTypeOf(value).toEqualTypeOf<{ readonly foo: undefined }>()
                     return true
                 })
                 .orThrow()
         })
 
-        test("exhaustive patterns #9", () => {
-            match({ foo: "foo" } as { foo?: "foo" })
-                .onShape({ foo: "foo" as "foo" | undefined }, (value) => {
-                    expectTypeOf(value).toEqualTypeOf<{ readonly foo: "foo" | undefined }>()
-                    return true
-                })
-                .orThrow()
-        })
-
-        test("exhaustive patterns #10", () => {
-            match({ foo: "foo" } as { foo: "foo" } | { bar: "bar" })
-                .onShape({ foo: "foo" }, (value) => {
+        test("exhaustive patterns #6", () => {
+            match.shape({ foo: "foo" } as { foo: "foo" } | { bar: "bar" })
+                .onCase({ foo: "foo" }, (value) => {
                     expectTypeOf(value).toEqualTypeOf<{ readonly foo: "foo" }>()
                     return true
                 })
-                .onShape({ bar: "bar" }, (value) => {
+                .onCase({ bar: "bar" }, (value) => {
                     expectTypeOf(value).toEqualTypeOf<{ readonly bar: "bar" }>()
                     return true
                 })
@@ -130,16 +94,16 @@ describe("onShape", () => {
         })
 
         test("non-exhaustive patterns #1", () => {
-            match({ foo: "foo" as "foo" | "bar" })
-                .onShape({ foo: "foo" }, (value) => {
+            match.shape({ foo: "foo" as "foo" | "bar" })
+                .onCase({ foo: "foo" }, (value) => {
                     expectTypeOf(value).toEqualTypeOf<{ readonly foo: "foo" }>()
                     return true
                 })
             // @ts-expect-error test case.
                 .orThrow()
 
-            match({ foo: "foo" as "foo" | "bar" })
-                .onShape({ foo: "foo" }, (value) => {
+            match.shape({ foo: "foo" as "foo" | "bar" })
+                .onCase({ foo: "foo" }, (value) => {
                     expectTypeOf(value).toEqualTypeOf<{ readonly foo: "foo" }>()
                     return true
                 })
@@ -149,16 +113,16 @@ describe("onShape", () => {
         })
 
         test("non-exhaustive patterns #2", () => {
-            match({ foo: "foo" as string })
-                .onShape({ foo: "foo" }, (value) => {
+            match.shape({ foo: "foo" as string })
+                .onCase({ foo: "foo" }, (value) => {
                     expectTypeOf(value).toEqualTypeOf<{ readonly foo: "foo" }>()
                     return true
                 })
             // @ts-expect-error test case.
                 .orThrow()
 
-            match({ foo: "foo" as string })
-                .onShape({ foo: "foo" }, (value) => {
+            match.shape({ foo: "foo" as string })
+                .onCase({ foo: "foo" }, (value) => {
                     expectTypeOf(value).toEqualTypeOf<{ readonly foo: "foo" }>()
                     return true
                 })
@@ -168,16 +132,16 @@ describe("onShape", () => {
         })
 
         test("non-exhaustive patterns #3", () => {
-            match({ foo: "foo" as string })
-                .onShape({ foo: "foo" as string }, (value) => {
+            match.shape({ foo: "foo" as string })
+                .onCase({ foo: "foo" as string }, (value) => {
                     expectTypeOf(value).toEqualTypeOf<{ readonly foo: string }>()
                     return true
                 })
             // @ts-expect-error test case.
                 .orThrow()
 
-            match({ foo: "foo" as string })
-                .onShape({ foo: "foo" as string }, (value) => {
+            match.shape({ foo: "foo" as string })
+                .onCase({ foo: "foo" as string }, (value) => {
                     expectTypeOf(value).toEqualTypeOf<{ readonly foo: string }>()
                     return true
                 })
@@ -187,16 +151,16 @@ describe("onShape", () => {
         })
 
         test("non-exhaustive patterns #4", () => {
-            match({ foo: true as boolean })
-                .onShape({ foo: true }, (value) => {
+            match.shape({ foo: true as boolean })
+                .onCase({ foo: true }, (value) => {
                     expectTypeOf(value).toEqualTypeOf<{ readonly foo: true }>()
                     return true
                 })
             // @ts-expect-error test case.
                 .orThrow()
 
-            match({ foo: true as boolean })
-                .onShape({ foo: true }, (value) => {
+            match.shape({ foo: true as boolean })
+                .onCase({ foo: true }, (value) => {
                     expectTypeOf(value).toEqualTypeOf<{ readonly foo: true }>()
                     return true
                 })
@@ -205,36 +169,17 @@ describe("onShape", () => {
                 })
         })
 
-        test("non-exhaustive patterns #5", () => {
-            match({ foo: true as boolean })
-                .onShape({ foo: true as boolean }, (value) => {
-                    expectTypeOf(value).toEqualTypeOf<{ readonly foo: boolean }>()
-                    return true
-                })
-            // @ts-expect-error test case.
-                .orThrow()
-
-            match({ foo: true as boolean })
-                .onShape({ foo: true as boolean }, (value) => {
-                    expectTypeOf(value).toEqualTypeOf<{ readonly foo: boolean }>()
-                    return true
-                })
-                .orElse((value) => {
-                    expectTypeOf(value).toEqualTypeOf<{ readonly foo: boolean }>()
-                })
-        })
-
         test("non-exhaustive patterns #6", () => {
-            match({ foo: 0 as 0 | 1 })
-                .onShape({ foo: 0 }, (value) => {
+            match.shape({ foo: 0 as 0 | 1 })
+                .onCase({ foo: 0 }, (value) => {
                     expectTypeOf(value).toEqualTypeOf<{ readonly foo: 0 }>()
                     return true
                 })
             // @ts-expect-error test case.
                 .orThrow()
 
-            match({ foo: 0 as 0 | 1 })
-                .onShape({ foo: 0 }, (value) => {
+            match.shape({ foo: 0 as 0 | 1 })
+                .onCase({ foo: 0 }, (value) => {
                     expectTypeOf(value).toEqualTypeOf<{ readonly foo: 0 }>()
                     return true
                 })
@@ -244,16 +189,16 @@ describe("onShape", () => {
         })
 
         test("non-exhaustive patterns #7", () => {
-            match({ foo: 0 as number })
-                .onShape({ foo: 0 }, (value) => {
+            match.shape({ foo: 0 as number })
+                .onCase({ foo: 0 }, (value) => {
                     expectTypeOf(value).toEqualTypeOf<{ readonly foo: 0 }>()
                     return true
                 })
             // @ts-expect-error test case.
                 .orThrow()
 
-            match({ foo: 0 as number })
-                .onShape({ foo: 0 }, (value) => {
+            match.shape({ foo: 0 as number })
+                .onCase({ foo: 0 }, (value) => {
                     expectTypeOf(value).toEqualTypeOf<{ readonly foo: 0 }>()
                     return true
                 })
@@ -263,16 +208,16 @@ describe("onShape", () => {
         })
 
         test("non-exhaustive patterns #8", () => {
-            match({ foo: 0 as number })
-                .onShape({ foo: 0 as number }, (value) => {
+            match.shape({ foo: 0 as number })
+                .onCase({ foo: 0 as number }, (value) => {
                     expectTypeOf(value).toEqualTypeOf<{ readonly foo: number }>()
                     return true
                 })
             // @ts-expect-error test case.
                 .orThrow()
 
-            match({ foo: 0 as number })
-                .onShape({ foo: 0 as number }, (value) => {
+            match.shape({ foo: 0 as number })
+                .onCase({ foo: 0 as number }, (value) => {
                     expectTypeOf(value).toEqualTypeOf<{ readonly foo: number }>()
                     return true
                 })
@@ -282,16 +227,16 @@ describe("onShape", () => {
         })
 
         test("non-exhaustive patterns #9", () => {
-            match({ foo: "foo" as "foo" | null })
-                .onShape({ foo: "foo" }, (value) => {
+            match.shape({ foo: "foo" as "foo" | null })
+                .onCase({ foo: "foo" }, (value) => {
                     expectTypeOf(value).toEqualTypeOf<{ readonly foo: "foo" }>()
                     return true
                 })
             // @ts-expect-error test case.
                 .orThrow()
 
-            match({ foo: "foo" as "foo" | null })
-                .onShape({ foo: "foo" }, (value) => {
+            match.shape({ foo: "foo" as "foo" | null })
+                .onCase({ foo: "foo" }, (value) => {
                     expectTypeOf(value).toEqualTypeOf<{ readonly foo: "foo" }>()
                     return true
                 })
@@ -301,16 +246,16 @@ describe("onShape", () => {
         })
 
         test("non-exhaustive patterns #10", () => {
-            match({ foo: null as "foo" | null })
-                .onShape({ foo: null }, (value) => {
+            match.shape({ foo: null as "foo" | null })
+                .onCase({ foo: null }, (value) => {
                     expectTypeOf(value).toEqualTypeOf<{ readonly foo: null }>()
                     return true
                 })
             // @ts-expect-error test case.
                 .orThrow()
 
-            match({ foo: null as "foo" | null })
-                .onShape({ foo: null }, (value) => {
+            match.shape({ foo: null as "foo" | null })
+                .onCase({ foo: null }, (value) => {
                     expectTypeOf(value).toEqualTypeOf<{ readonly foo: null }>()
                     return true
                 })
@@ -320,16 +265,16 @@ describe("onShape", () => {
         })
 
         test("non-exhaustive patterns #11", () => {
-            match({ foo: "foo" } as { foo?: "foo" })
-                .onShape({ foo: "foo" }, (value) => {
+            match.shape({ foo: "foo" } as { foo?: "foo" })
+                .onCase({ foo: "foo" }, (value) => {
                     expectTypeOf(value).toEqualTypeOf<{ readonly foo: "foo" }>()
                     return true
                 })
             // @ts-expect-error test case.
                 .orThrow()
 
-            match({ foo: "foo" } as { foo?: "foo" })
-                .onShape({ foo: "foo" }, (value) => {
+            match.shape({ foo: "foo" } as { foo?: "foo" })
+                .onCase({ foo: "foo" }, (value) => {
                     expectTypeOf(value).toEqualTypeOf<{ readonly foo: "foo" }>()
                     return true
                 })
@@ -339,16 +284,16 @@ describe("onShape", () => {
         })
 
         test("non-exhaustive patterns #12", () => {
-            match({ foo: undefined } as { foo?: "foo" })
-                .onShape({ foo: undefined }, (value) => {
+            match.shape({ foo: undefined } as { foo?: "foo" })
+                .onCase({ foo: undefined }, (value) => {
                     expectTypeOf(value).toEqualTypeOf<{ readonly foo: undefined }>()
                     return true
                 })
             // @ts-expect-error test case.
                 .orThrow()
 
-            match({ foo: undefined } as { foo?: "foo" })
-                .onShape({ foo: undefined }, (value) => {
+            match.shape({ foo: undefined } as { foo?: "foo" })
+                .onCase({ foo: undefined }, (value) => {
                     expectTypeOf(value).toEqualTypeOf<{ readonly foo: undefined }>()
                     return true
                 })
@@ -358,16 +303,16 @@ describe("onShape", () => {
         })
 
         test("non-exhaustive patterns #13", () => {
-            match({ foo: "foo" } as { foo: "foo" } | { bar: "bar" })
-                .onShape({ foo: "foo" }, (value) => {
+            match.shape({ foo: "foo" } as { foo: "foo" } | { bar: "bar" })
+                .onCase({ foo: "foo" }, (value) => {
                     expectTypeOf(value).toEqualTypeOf<{ readonly foo: "foo" }>()
                     return true
                 })
             // @ts-expect-error test case.
                 .orThrow()
 
-            match({ foo: "foo" } as { foo: "foo" } | { bar: "bar" })
-                .onShape({ foo: "foo" }, (value) => {
+            match.shape({ foo: "foo" } as { foo: "foo" } | { bar: "bar" })
+                .onCase({ foo: "foo" }, (value) => {
                     expectTypeOf(value).toEqualTypeOf<{ readonly foo: "foo" }>()
                     return true
                 })
@@ -377,95 +322,94 @@ describe("onShape", () => {
         })
 
         test("duplicated patterns #1", () => {
-            match({ foo: "foo" as "foo" | "bar" })
-                .onShape({ foo: "foo" }, () => true)
+            match.shape({ foo: "foo" as "foo" | "bar" })
+                .onCase({ foo: "foo" }, () => true)
             // @ts-expect-error test case.
-                .onShape({ foo: "foo" }, () => true)
+                .onCase({ foo: "foo" }, () => true)
         })
 
         test("duplicated patterns #2", () => {
-            match({ foo: "foo" as string })
-                .onShape({ foo: "foo" }, () => true)
+            match.shape({ foo: "foo" as string })
+                .onCase({ foo: "foo" }, () => true)
             // @ts-expect-error test case.
-                .onShape({ foo: "foo" }, () => true)
+                .onCase({ foo: "foo" }, () => true)
         })
 
         test("duplicated patterns #3", () => {
-            match({ foo: 0 as 0 | 1 })
-                .onShape({ foo: 0 }, () => true)
+            match.shape({ foo: 0 as 0 | 1 })
+                .onCase({ foo: 0 }, () => true)
             // @ts-expect-error test case.
-                .onShape({ foo: 0 }, () => true)
+                .onCase({ foo: 0 }, () => true)
         })
 
         test("duplicated patterns #4", () => {
-            match({ foo: 0 as number })
-                .onShape({ foo: 0 }, () => true)
+            match.shape({ foo: 0 as number })
+                .onCase({ foo: 0 }, () => true)
             // @ts-expect-error test case.
-                .onShape({ foo: 0 }, () => true)
+                .onCase({ foo: 0 }, () => true)
         })
 
         test("duplicated patterns #5", () => {
-            match({ foo: true })
-                .onShape({ foo: true }, () => true)
+            match.shape({ foo: true })
+                .onCase({ foo: true }, () => true)
             // @ts-expect-error test case.
-                .onShape({ foo: true }, () => true)
+                .onCase({ foo: true }, () => true)
         })
 
         test("duplicated patterns #6", () => {
-            match({ foo: true as boolean })
-                .onShape({ foo: true }, () => true)
+            match.shape({ foo: true as boolean })
+                .onCase({ foo: true }, () => true)
             // @ts-expect-error test case.
-                .onShape({ foo: true }, () => true)
+                .onCase({ foo: true }, () => true)
         })
 
         test("duplicated patterns #7", () => {
-            match({ foo: null as string | null })
-                .onShape({ foo: null }, () => true)
+            match.shape({ foo: null as string | null })
+                .onCase({ foo: null }, () => true)
             // @ts-expect-error test case.
-                .onShape({ foo: null }, () => true)
+                .onCase({ foo: null }, () => true)
         })
 
         test("duplicated patterns #8", () => {
-            match({ foo: undefined } as { foo?: string })
-                .onShape({ foo: undefined }, () => true)
+            match.shape({ foo: undefined } as { foo?: string })
+                .onCase({ foo: undefined }, () => true)
             // @ts-expect-error test case.
-                .onShape({ foo: undefined }, () => true)
+                .onCase({ foo: undefined }, () => true)
         })
 
         test("invalid patterns #1", () => {
-            match({ foo: true })
+            match.shape({ foo: true })
             // @ts-expect-error test case.
-                .onShape({ bar: true }, () => true)
+                .onCase({ bar: true }, () => true)
         })
 
         test("invalid patterns #2", () => {
-            match({ foo: true })
+            match.shape({ foo: true })
             // @ts-expect-error test case.
-                .onShape({ bar: true, baz: true }, () => true)
+                .onCase({ bar: true, baz: true }, () => true)
         })
 
         test("invalid patterns #3", () => {
-            match({ foo: ["foo"] })
+            match.shape({ foo: ["foo"] })
             // @ts-expect-error test case.
-                .onShape({ foo: ["foo"] }, () => true)
+                .onCase({ foo: ["foo"] }, () => true)
         })
 
         test("invalid patterns #4", () => {
-            match({ foo: true })
+            match.shape({ foo: true })
             // @ts-expect-error test case.
-                .onShape({ foo: undefined }, () => true)
+                .onCase({ foo: undefined }, () => true)
         })
 
         test("invalid patterns #5", () => {
-            match({ foo: true })
+            match.shape({ foo: true })
             // @ts-expect-error test case.
-                .onShape({}, () => true)
+                .onCase({}, () => true)
         })
 
         test("invalid patterns #6", () => {
-            match({ foo: true } as { foo: boolean } | string)
             // @ts-expect-error test case.
-                .onShape("foo", () => true)
+            match.shape({ foo: true } as { foo: boolean } | string)
         })
     })
 })

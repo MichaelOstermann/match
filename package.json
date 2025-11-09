@@ -4,7 +4,8 @@
     "workspaces": ["packages/*"],
     "scripts": {
         "checks": "bun run eslint && bun run tsc && bun run vitest run --passWithNoTests",
-        "release": "bun run checks && bun run -F '*' bundle && bun run bumpp -r --no-push && bun run -F '*' release",
+        "bundles": "bun run -F '*' bundle",
+        "release": "bun run scripts/release",
         "docs": "vitepress dev docs --open",
         "docs:build": "vitepress build docs"
     },
@@ -13,7 +14,7 @@
         "@monstermann/tinybench-pretty-printer": "^0.1.0",
         "@monstermann/vitepress-theme": "^0.2.0",
         "@sindresorhus/tsconfig": "^7.0.0",
-        "bumpp": "^10.1.1",
+        "prompts": "^2.4.2",
         "tinybench": "^4.0.1",
         "ts-pattern": "^5.7.1",
         "tsdown": "^0.11.11",

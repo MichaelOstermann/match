@@ -6,23 +6,22 @@ aside: true
 
 <Badge type="info" class="size">
     <span>Minified</span>
-    <span>1.00 KB</span>
+    <span>1.04 KB</span>
 </Badge>
 
 <Badge type="info" class="size">
     <span>Minzipped</span>
-    <span>305 B</span>
+    <span>309 B</span>
 </Badge>
 
 **Zero-runtime exhaustive pattern matching, inspired by [ts-pattern](https://github.com/gvergnaud/ts-pattern) and [pattycake](https://github.com/aidenybai/pattycake).**
 
-This library is a lightweight alternative to `ts-pattern`, with an optional Babel plugin that compiles `match` expressions to fast, plain JavaScript.
+This library is a lightweight alternative to [`ts-pattern`](https://github.com/gvergnaud/ts-pattern), with an optional [unplugin](https://unplugin.unjs.io/) that compiles `match` expressions to plain & fast JavaScript, where applicable.
 
 ## Features
 
 - Very small size
 - Up to 60x faster than ts-pattern
-- 600+ tests
 - Type-safe exhaustiveness checks
 - Match against literals, primitives, and shallow objects
 - Eager (`case(pattern, result)`) and lazy (`case(pattern, () => result)`) matching
@@ -41,21 +40,23 @@ match(value)
     .orElse(v => v + 1)
 
 // Match object shapes:
-match({ value: foo })
-    .shape({ value: 1 }, 2)
-    .shape({ value: 2 }, 3)
+match
+    .shape({ value: foo })
+    .case({ value: 1 }, 2)
+    .case({ value: 2 }, 3)
     .or(0)
 
-// Match with conditions:
-match({ value: foo })
+// Match with predicates:
+match
+    .shape({ value: foo })
     .cond(v => v.value > 0, "positive")
     .cond(v => v.value < 0, "negative")
     .or("zero")
 ```
 
-### Babel plugin
+### Unplugin
 
-The Babel plugin can optimize your code to be as fast as hand-written if/else statements.
+The unplugin can optimize your code to be as fast as hand-written if/else statements, with the help of the [Oxidation Compiler](https://oxc.rs/), for example:
 
 ::: code-group
 
@@ -66,110 +67,77 @@ import { match } from "@monstermann/match"
 match(value)
     .case(1, 2)
     .case(2, 3)
-    .orElse(v => v + 1)
+    .or(4)
 ```
 
 <!-- prettier-ignore -->
 ```ts [🚀]
   value === 1 ? 2 
 : value === 2 ? 3 
-: value + 1
-```
-
-:::
-::: code-group
-
-<!-- prettier-ignore -->
-```ts [🐢]
-import { match } from "@monstermann/match"
-
-match({ value: foo })
-    .shape({ value: 1 }, 2)
-    .shape({ value: 2 }, 3)
-    .or(0)
-```
-
-<!-- prettier-ignore -->
-```ts [🚀]
-  foo === 1 ? 2
-: foo === 2 ? 3
-: 0
-```
-
-:::
-::: code-group
-
-<!-- prettier-ignore -->
-```ts [🐢]
-import { match } from "@monstermann/match"
-
-match({ value: foo })
-    .cond(v => v.value > 0, "positive")
-    .cond(v => v.value < 0, "negative")
-    .or("zero")
-```
-
-<!-- prettier-ignore -->
-```ts [🚀]
-  foo > 0 ? "positive" 
-: foo < 0 ? "negative" 
-: "zero"
-```
-
-:::
-::: code-group
-
-<!-- prettier-ignore -->
-```ts [🐢]
-import { match } from "@monstermann/match"
-
-match(expensive())
-    .shape({ value: undefined }, "undefined")
-    .cond((v) => isString(v.value), "string")
-    .cond((v) => isNumber(v.value), "number")
-    .or("unknown")
-```
-
-<!-- prettier-ignore -->
-```ts [🚀]
-((_v) =>
-    _v && typeof _v === "object" && _v.value === undefined ? "undefined"
-    : isString(_v.value) ? "string"
-    : isNumber(_v.value) ? "number"
-    : "unknown"
-)(expensive())
+: 4
 ```
 
 :::
 
 ## Benchmarks
 
-- Runtime: Node v24.0.1
-- System: Apple M1 Max
+### Bun
 
-| case                            | summary | ops/sec | time/op | margin | samples |
-| ------------------------------- | :-----: | ------: | ------: | :----: | ------: |
-| @monstermann/babel-plugin-match |   🥇    |     36M |    21ns | ±0.09% |     47M |
-| @monstermann/match              |  -29%   |     25M |    33ns | ±0.05% |     30M |
-| ts-pattern                      |  -88%   |      4M |   279ns | ±5.25% |      4M |
+- Runtime: Bun v1.2.19
+- CPU: AMD Ryzen 9 7900 12-Core
 
-| shape (object expression)       | summary | ops/sec | time/op | margin | samples |
-| ------------------------------- | :-----: | ------: | ------: | :----: | ------: |
-| @monstermann/babel-plugin-match |   🥇    |     37M |    21ns | ±0.05% |     49M |
-| @monstermann/match              |  -72%   |     10M |   103ns | ±0.56% |     10M |
-| ts-pattern                      |  -98%   |    597K |     2µs | ±5.92% |    557K |
+| case                        | summary | ops/sec | time/op | margin | samples |
+| --------------------------- | :-----: | ------: | ------: | :----: | ------: |
+| @monstermann/unplugin-match |   🥇    |     41M |    26ns | ±0.07% |     39M |
+| @monstermann/match          |  -15%   |     35M |    32ns | ±0.45% |     32M |
+| ts-pattern                  |  -95%   |      2M |   762ns | ±0.33% |      1M |
 
-| shape (identifier)              | summary | ops/sec | time/op | margin | samples |
-| ------------------------------- | :-----: | ------: | ------: | :----: | ------: |
-| @monstermann/babel-plugin-match |   🥇    |     37M |    20ns | ±0.08% |     49M |
-| @monstermann/match              |  -69%   |     12M |    92ns | ±1.13% |     11M |
-| ts-pattern                      |  -98%   |    591K |     2µs | ±1.18% |    562K |
+| shape (object expression)   | summary | ops/sec | time/op | margin | samples |
+| --------------------------- | :-----: | ------: | ------: | :----: | ------: |
+| @monstermann/unplugin-match |   🥇    |     41M |    27ns | ±0.21% |     38M |
+| @monstermann/match          |  -64%   |     15M |    85ns | ±0.65% |     12M |
+| ts-pattern                  |  -97%   |      1M |   980ns | ±0.28% |      1M |
 
-| cond                            | summary | ops/sec | time/op | margin | samples |
-| ------------------------------- | :-----: | ------: | ------: | :----: | ------: |
-| @monstermann/babel-plugin-match |   🥇    |     34M |    22ns | ±0.04% |     45M |
-| @monstermann/match              |  -27%   |     24M |    36ns | ±0.05% |     28M |
-| ts-pattern                      |  -73%   |      9M |   134ns | ±6.87% |      7M |
+| shape (identifier)          | summary | ops/sec | time/op | margin | samples |
+| --------------------------- | :-----: | ------: | ------: | :----: | ------: |
+| @monstermann/unplugin-match |   🥇    |     41M |    25ns | ±0.06% |     39M |
+| @monstermann/match          |  -63%   |     15M |    79ns | ±0.58% |     13M |
+| ts-pattern                  |  -97%   |      1M |   975ns | ±0.31% |      1M |
+
+| cond                        | summary | ops/sec | time/op | margin | samples |
+| --------------------------- | :-----: | ------: | ------: | :----: | ------: |
+| @monstermann/unplugin-match |   🥇    |     41M |    26ns | ±0.13% |     38M |
+| @monstermann/match          |  -51%   |     20M |    59ns | ±0.65% |     17M |
+| ts-pattern                  |  -76%   |     10M |   138ns | ±0.29% |      7M |
+
+### Node
+
+- Runtime: Node v25.1.0
+- CPU: AMD Ryzen 9 7900 12-Core
+
+| case                        | summary | ops/sec | time/op | margin | samples |
+| --------------------------- | :-----: | ------: | ------: | :----: | ------: |
+| @monstermann/unplugin-match |   🥇    |     42M |    25ns | ±0.09% |     40M |
+| @monstermann/match          |  -7.7%  |     39M |    28ns | ±0.63% |     35M |
+| ts-pattern                  |  -87%   |      5M |   219ns | ±3.38% |      5M |
+
+| shape (object expression)   | summary | ops/sec | time/op | margin | samples |
+| --------------------------- | :-----: | ------: | ------: | :----: | ------: |
+| @monstermann/unplugin-match |   🥇    |     42M |    25ns | ±0.04% |     40M |
+| @monstermann/match          |  -65%   |     15M |    70ns | ±0.15% |     14M |
+| ts-pattern                  |  -98%   |    657K |     2µs | ±7.02% |    608K |
+
+| shape (identifier)          | summary | ops/sec | time/op | margin | samples |
+| --------------------------- | :-----: | ------: | ------: | :----: | ------: |
+| @monstermann/unplugin-match |   🥇    |     42M |    25ns | ±0.11% |     40M |
+| @monstermann/match          |  -66%   |     14M |    72ns | ±0.08% |     14M |
+| ts-pattern                  |  -98%   |    658K |     2µs | ±5.66% |    618K |
+
+| cond                        | summary | ops/sec | time/op | margin | samples |
+| --------------------------- | :-----: | ------: | ------: | :----: | ------: |
+| @monstermann/unplugin-match |   🥇    |     42M |    25ns | ±0.07% |     40M |
+| @monstermann/match          |  -12%   |     37M |    29ns | ±0.55% |     34M |
+| ts-pattern                  |  -68%   |     14M |    84ns | ±0.60% |     12M |
 
 ## Installation
 
@@ -177,65 +145,107 @@ match(expensive())
 
 ```sh [npm]
 npm install @monstermann/match
-npm install -D @monstermann/babel-plugin-match
+npm install -D @monstermann/unplugin-match
 ```
 
 ```sh [pnpm]
 pnpm add @monstermann/match
-pnpm add -D @monstermann/babel-plugin-match
+pnpm add -D @monstermann/unplugin-match
 ```
 
 ```sh [yarn]
 yarn add @monstermann/match
-yarn add -D @monstermann/babel-plugin-match
+yarn add -D @monstermann/unplugin-match
 ```
 
 ```sh [bun]
 bun add @monstermann/match
-bun add -D @monstermann/babel-plugin-match
+bun add -D @monstermann/unplugin-match
 ```
 
 :::
 
-Please consult your bundler of choice on how to enable Babel plugins, some examples:
-
-::: details vite + @vitejs/plugin-react
+## Setup
 
 ::: code-group
 
-```ts [vite]
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-
-export default defineConfig(() => ({
-    plugins: [
-        react({
-            babel: {
-                plugins: [["@monstermann/babel-plugin-match"]],
-            },
-        }),
-    ],
-}));
-```
-
-:::
-
-::: details vite + vite-plugin-babel
-::: code-group
-
-```ts [vite]
-import { defineConfig } from "vite";
-import babel from "vite-plugin-babel";
+```ts [Vite]
+// vite.config.ts
+import match from "@monstermann/unplugin-match/vite";
 
 export default defineConfig({
-    plugins: [babel()],
+    plugins: [match()],
 });
 ```
 
-```json [.babelrc.json]
-{
-    "plugins": [["@monstermann/babel-plugin-match"]]
-}
+```ts [Rollup]
+// rollup.config.js
+import match from "@monstermann/unplugin-match/rollup";
+
+export default {
+    plugins: [match()],
+};
+```
+
+```ts [Rolldown]
+// rolldown.config.js
+import match from "@monstermann/unplugin-match/rolldown";
+
+export default {
+    plugins: [match()],
+};
+```
+
+```ts [Webpack]
+// webpack.config.js
+module.exports = {
+    plugins: [require("@monstermann/unplugin-match/webpack")()],
+};
+```
+
+```ts [Rspack]
+// rspack.config.js
+module.exports = {
+    plugins: [require("@monstermann/unplugin-match/rspack")()],
+};
+```
+
+```ts [ESBuild]
+// esbuild.config.js
+import { build } from "esbuild";
+import match from "@monstermann/unplugin-match/esbuild";
+
+build({
+    plugins: [match()],
+});
 ```
 
 :::
+
+## Usage
+
+```ts
+import { match } from "@monstermann/match";
+
+// Match a literal or primitive:
+match(value);
+
+// Or match an object:
+match.shape(value);
+
+// Optionally set a strict return type:
+.returnType<Type>()
+
+// Match against a pattern:
+.case(value, result)
+.onCase(value, (match) => result)
+
+// Or match against a predicate:
+.cond((unmatched) => boolean, result)
+.onCond((unmatched) => boolean, (match) => result)
+
+// Handle result:
+.or(fallback)
+.orElse((unmatched) => fallback)
+.orThrow()
+```

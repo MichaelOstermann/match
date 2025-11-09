@@ -1,0 +1,42 @@
+{
+    "name": "@monstermann/transform-match",
+    "type": "module",
+    "version": "0.1.0",
+    "description": "Zero-runtime exhaustive pattern matching.",
+    "author": "Michael Ostermann <michaelostermann@me.com>",
+    "license": "MIT",
+    "homepage": "https://MichaelOstermann.github.io/match",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/MichaelOstermann/match.git"
+    },
+    "bugs": {
+        "url": "https://github.com/MichaelOstermann/match/issues"
+    },
+    "keywords": [],
+    "sideEffects": false,
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js"
+        }
+    },
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "bundle": "tsdown",
+        "release": "bun publish --access public"
+    },
+    "dependencies": {
+        "@jridgewell/remapping": "^2.3.4",
+        "@jridgewell/sourcemap-codec": "^1.5.4",
+        "magic-string": "^0.30.17",
+        "oxc-parser": "^0.96.0",
+        "oxc-walker": "^0.5.2",
+        "redent": "^4.0.0"
+    }
+}

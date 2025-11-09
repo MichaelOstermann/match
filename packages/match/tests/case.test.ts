@@ -42,54 +42,30 @@ describe("case", () => {
         })
 
         test("exhaustive patterns #2", () => {
-            match("foo" as "foo" | "bar")
-                .case("foo" as "foo" | "bar", "foo")
-                .orThrow()
-        })
-
-        test("exhaustive patterns #3", () => {
             match(0 as 0 | 1)
                 .case(0, 0)
                 .case(1, 1)
                 .orThrow()
         })
 
-        test("exhaustive patterns #4", () => {
-            match(0 as 0 | 1)
-                .case(0 as 0 | 1, 0)
-                .orThrow()
-        })
-
-        test("exhaustive patterns #5", () => {
+        test("exhaustive patterns #3", () => {
             match(true as boolean)
                 .case(true, true)
                 .case(false, false)
                 .orThrow()
         })
 
-        test("exhaustive patterns #6", () => {
+        test("exhaustive patterns #4", () => {
             match("foo" as "foo" | null)
                 .case("foo", "foo")
                 .case(null, null)
                 .orThrow()
         })
 
-        test("exhaustive patterns #7", () => {
-            match("foo" as "foo" | null)
-                .case("foo" as "foo" | null, "foo")
-                .orThrow()
-        })
-
-        test("exhaustive patterns #8", () => {
+        test("exhaustive patterns #5", () => {
             match("foo" as "foo" | undefined)
                 .case("foo", "foo")
                 .case(undefined, undefined)
-                .orThrow()
-        })
-
-        test("exhaustive patterns #9", () => {
-            match("foo" as "foo" | undefined)
-                .case("foo" as "foo" | undefined, "foo")
                 .orThrow()
         })
 
@@ -324,9 +300,8 @@ describe("case", () => {
         })
 
         test("invalid patterns #4", () => {
+            // @ts-expect-error test case.
             match({ foo: true } as { foo: boolean } | string)
-                // @ts-expect-error test case.
-                .case({ foo: true }, true)
         })
 
         test("autocompletion #1", () => {

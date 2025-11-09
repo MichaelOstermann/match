@@ -1,8 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`orThrow > optimize #1 1`] = `
-"import { match } from "@monstermann/match";
-value === a ? true : (() => {
-  throw new Error(\`Pattern matching error: no pattern matches value \${JSON.stringify(value)}\`);
-})();"
-`;

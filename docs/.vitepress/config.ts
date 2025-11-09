@@ -24,24 +24,6 @@ export default defineConfig({
         search: {
             provider: "local",
         },
-        sidebar: [
-            {
-                base: "/API/",
-                text: "API",
-                items: [
-                    { link: "returnType", text: "returnType" },
-                    { link: "case", text: "case" },
-                    { link: "onCase", text: "onCase" },
-                    { link: "shape", text: "shape" },
-                    { link: "onShape", text: "onShape" },
-                    { link: "cond", text: "cond" },
-                    { link: "onCond", text: "onCond" },
-                    { link: "or", text: "or" },
-                    { link: "orElse", text: "orElse" },
-                    { link: "orThrow", text: "orThrow" },
-                ],
-            },
-        ],
         socialLinks: [
             { icon: "github", link: "https://github.com/MichaelOstermann/match" },
         ],
