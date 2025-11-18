@@ -117,7 +117,6 @@
     },
     "dependencies": {
         "@monstermann/transform-match": "workspace:*",
-        "unplugin": "^2.3.4",
-        "unplugin-utils": "^0.2.4"
+        "unplugin": "^2.3.4"
     }
 }
