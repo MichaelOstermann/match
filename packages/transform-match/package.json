@@ -35,7 +35,7 @@
         "@jridgewell/remapping": "^2.3.4",
         "@jridgewell/sourcemap-codec": "^1.5.4",
         "magic-string": "^0.30.17",
-        "oxc-parser": "^0.96.0",
+        "oxc-parser": "^0.101.0",
         "oxc-walker": "^0.5.2",
         "redent": "^4.0.0"
     }
