@@ -21,10 +21,7 @@ export function collectBranches(node: Node): Branch[] | undefined {
         ) {
             const name = pivot.callee.property.name
             const call = pivot
-            if (name === "returnType") {
-                continue
-            }
-            else if (name === "case") {
+            if (name === "case") {
                 branches.unshift({ name: "case", node: call })
             }
             else if (name === "onCase") {
@@ -39,7 +36,7 @@ export function collectBranches(node: Node): Branch[] | undefined {
             else if (name === "shape") {
                 branches.unshift({ name: "shape", node: call })
             }
-            else {
+            else if (name !== "returnType") {
                 return
             }
 
