@@ -1,7 +1,7 @@
 {
     "name": "@monstermann/match",
     "type": "module",
-    "version": "0.2.4",
+    "version": "0.2.5",
     "description": "Zero-runtime exhaustive pattern matching.",
     "author": "Michael Ostermann <michaelostermann@me.com>",
     "license": "MIT",
