@@ -25,7 +25,10 @@ export function transformShape(node: Node, branches: Branch[], ctx: Context): bo
         }
 
         else {
-            return false
+            const id = ctx.id("match")
+            const result = `((${id}) => ${transformBranches(id, branches, ctx)})(${ctx.code.slice(value.start, value.end)})`
+            ctx.ms.overwrite(node.start, node.end, result)
+            return true
         }
     }
     catch (error) {
