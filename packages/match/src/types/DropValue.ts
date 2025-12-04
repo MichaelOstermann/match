@@ -1,4 +1,4 @@
-import type { IsUnion } from "type-fest/source/internal"
+import type { IsUnion } from "type-fest"
 import type { IsLiteral } from "./IsLiteral"
 
 // Used to remove the provided case from the unmatched value.

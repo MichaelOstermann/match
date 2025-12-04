@@ -1,5 +1,4 @@
-import type { Primitive, UnionToTuple } from "type-fest"
-import type { IsUnion } from "type-fest/source/internal"
+import type { IsUnion, Primitive, UnionToTuple } from "type-fest"
 
 export type ShapeVariations<T> = ExplodeValues<T, ExplodeKeys<T>>
 
