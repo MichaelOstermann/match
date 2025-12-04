@@ -41,6 +41,6 @@
         "release": "bun publish --access public"
     },
     "dependencies": {
-        "type-fest": "^4.41.0"
+        "type-fest": "^5.0.0"
     }
 }
