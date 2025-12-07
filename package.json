@@ -15,7 +15,7 @@
         "@monstermann/tsconfig": "^0.0.0",
         "@monstermann/vitepress-theme": "^0.2.0",
         "prompts": "^2.4.2",
-        "tinybench": "^4.0.1",
+        "tinybench": "^6.0.0",
         "ts-pattern": "^5.7.1",
         "tsdown": "^0.16.0",
         "typescript": "^5.8.3",
