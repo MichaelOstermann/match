@@ -20,14 +20,14 @@
     },
     "packages/match": {
       "name": "@monstermann/match",
-      "version": "0.2.6",
+      "version": "0.2.7",
       "dependencies": {
         "type-fest": "^5.0.0",
       },
     },
     "packages/transform-match": {
       "name": "@monstermann/transform-match",
-      "version": "0.2.6",
+      "version": "0.2.7",
       "dependencies": {
         "@jridgewell/remapping": "^2.3.4",
         "@jridgewell/sourcemap-codec": "^1.5.4",
@@ -39,7 +39,7 @@
     },
     "packages/unplugin-match": {
       "name": "@monstermann/unplugin-match",
-      "version": "0.2.6",
+      "version": "0.2.7",
       "dependencies": {
         "@monstermann/transform-match": "workspace:*",
         "unplugin": "^2.3.4",
