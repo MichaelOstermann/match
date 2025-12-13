@@ -68,7 +68,10 @@ const { publish } = await prompts({
 }, { onCancel })
 
 if (publish) {
-    await $`bun run -F '*' release`
+    for (const pkgPath of packages) {
+        const pkgDir = pkgPath.replace("/package.json", "")
+        await $`cd ${pkgDir} && bun publish --access public`
+    }
 }
 
 const { push } = await prompts({
