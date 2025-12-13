@@ -1,3 +1,4 @@
+import type { Node } from "oxc-parser"
 import type { Context } from "./types"
 import MagicString from "magic-string"
 import { parseSync } from "oxc-parser"
@@ -12,6 +13,7 @@ export function transform(
 ): MagicString {
     const ast = parseSync(filePath, code)
     let ids: Set<string> | undefined
+    const parents = new WeakMap<Node, Node>()
 
     const ctx: Context = {
         code,
@@ -40,10 +42,12 @@ export function transform(
     }
 
     walk(ast.program, {
-        enter(node) {
+        enter(node, parent) {
+            if (parent) parents.set(node, parent)
             const branches = collectBranches(node)
             if (!branches) return
-            transformShape(node, branches, ctx) || transformMatch(node, branches, ctx)
+            const parentNode = parents.get(node)
+            transformShape(node, branches, parentNode, ctx) || transformMatch(node, branches, parentNode, ctx)
         },
     })
 

@@ -3,31 +3,33 @@ import type { Branch, Context } from "./types"
 import { abort, AbortError } from "./helpers"
 import { transformCallback } from "./transformCallback"
 
-export function transformShape(node: Node, branches: Branch[], ctx: Context): boolean {
+export function transformShape(node: Node, branches: Branch[], parent: Node | undefined, ctx: Context): boolean {
     const match = branches.find(branch => branch.name === "shape")
     if (!match) return false
 
     const value = match.node.arguments[0]
     if (!value) return false
 
+    const needsSemicolon = parent?.type === "ExpressionStatement"
+
     try {
         if (value.type === "ObjectExpression") {
             const id = ctx.id("match")
             const result = `((${id}) => ${transformBranches(id, branches, ctx)})(${ctx.code.slice(value.start, value.end)})`
-            ctx.ms.overwrite(node.start, node.end, result)
+            ctx.ms.overwrite(node.start, node.end, needsSemicolon ? `;${result}` : result)
             return true
         }
 
         else if (value.type === "Identifier") {
             const result = transformBranches(value.name, branches, ctx)
-            ctx.ms.overwrite(node.start, node.end, result)
+            ctx.ms.overwrite(node.start, node.end, needsSemicolon ? `;${result}` : result)
             return true
         }
 
         else {
             const id = ctx.id("match")
             const result = `((${id}) => ${transformBranches(id, branches, ctx)})(${ctx.code.slice(value.start, value.end)})`
-            ctx.ms.overwrite(node.start, node.end, result)
+            ctx.ms.overwrite(node.start, node.end, needsSemicolon ? `;${result}` : result)
             return true
         }
     }
