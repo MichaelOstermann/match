@@ -19,7 +19,7 @@ export interface ShapeMatcherStrict<
         : HasShapes<Input> extends true
             ? <const I extends ShapePatterns<Input>>(
                     value: ExcludeMatchedShapes<I, Matches>,
-                    result: Output
+                    result: Output,
                 ) => ShapeMatcherStrict<
                     DropShape<Input, I>,
                     Output,
@@ -45,7 +45,7 @@ export interface ShapeMatcherStrict<
         : HasShapes<Input> extends true
             ? <const I extends ShapePatterns<Input>>(
                     value: ExcludeMatchedShapes<I, Matches>,
-                    fn: (value: Simplify<PickShape<Input, I>>) => Output
+                    fn: (value: Simplify<PickShape<Input, I>>) => Output,
                 ) => ShapeMatcherStrict<
                     DropShape<Input, I>,
                     Output,

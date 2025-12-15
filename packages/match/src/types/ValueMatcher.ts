@@ -15,7 +15,7 @@ export interface ValueMatcher<
         ? MatchError<"Match is exhaustive">
         : <const I extends Input, O>(
                 value: ExcludeMatchedValues<I, Matches>,
-                result: O
+                result: O,
             ) => ValueMatcher<
                 DropValue<Input, I>,
                 Union<Output, O>,
@@ -39,7 +39,7 @@ export interface ValueMatcher<
         ? MatchError<"Match is exhaustive">
         : <const I extends Input, O>(
                 value: ExcludeMatchedValues<I, Matches>,
-                fn: (value: PickValue<Input, I>) => O
+                fn: (value: PickValue<Input, I>) => O,
             ) => ValueMatcher<
                 DropValue<Input, I>,
                 Union<Output, O>,

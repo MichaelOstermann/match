@@ -15,7 +15,7 @@ export interface ValueMatcherStrict<
         ? MatchError<"Match is exhaustive">
         : <const I extends Input>(
                 value: ExcludeMatchedValues<I, Matches>,
-                result: Output
+                result: Output,
             ) => ValueMatcherStrict<
                 DropValue<Input, I>,
                 Output,
@@ -39,7 +39,7 @@ export interface ValueMatcherStrict<
         ? MatchError<"Match is exhaustive">
         : <const I extends Input>(
                 value: ExcludeMatchedValues<I, Matches>,
-                fn: (value: PickValue<Input, I>) => Output
+                fn: (value: PickValue<Input, I>) => Output,
             ) => ValueMatcherStrict<
                 DropValue<Input, I>,
                 Output,
