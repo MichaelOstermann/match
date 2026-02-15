@@ -1,7 +1,7 @@
 {
     "name": "@monstermann/transform-match",
     "type": "module",
-    "version": "0.2.7",
+    "version": "0.3.0",
     "description": "Zero-runtime exhaustive pattern matching.",
     "author": "Michael Ostermann <michaelostermann@me.com>",
     "license": "MIT",
