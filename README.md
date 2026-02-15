@@ -229,4 +229,3 @@ match.shape(value);
 .orElse((unmatched) => fallback)
 .orThrow()
 ```
-
