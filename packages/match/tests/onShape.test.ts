@@ -93,6 +93,24 @@ describe("onShape", () => {
                 .orThrow()
         })
 
+        test("exhaustive patterns #7", () => {
+            enum Status { A = 0, B = 1, C = 2 }
+            match.shape({ type: Status.A } as { type: Status })
+                .onCase({ type: Status.A }, (value) => {
+                    expectTypeOf(value).toEqualTypeOf<{ readonly type: Status.A }>()
+                    return true
+                })
+                .onCase({ type: Status.B }, (value) => {
+                    expectTypeOf(value).toEqualTypeOf<{ readonly type: Status.B }>()
+                    return true
+                })
+                .onCase({ type: Status.C }, (value) => {
+                    expectTypeOf(value).toEqualTypeOf<{ readonly type: Status.C }>()
+                    return true
+                })
+                .orThrow()
+        })
+
         test("non-exhaustive patterns #1", () => {
             match.shape({ foo: "foo" as "foo" | "bar" })
                 .onCase({ foo: "foo" }, (value) => {

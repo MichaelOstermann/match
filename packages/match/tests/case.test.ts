@@ -69,6 +69,15 @@ describe("case", () => {
                 .orThrow()
         })
 
+        test("exhaustive patterns #6", () => {
+            enum Status { A = 0, B = 1, C = 2 }
+            match(Status.A as Status)
+                .case(Status.A, "a")
+                .case(Status.B, "b")
+                .case(Status.C, "c")
+                .orThrow()
+        })
+
         test("non-exhaustive patterns #1", () => {
             match("foo" as "foo" | "bar")
                 .case("foo", "foo")
